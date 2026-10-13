@@ -193,6 +193,12 @@ class AprioriRecommendations extends Component
         }
 
         if ($target !== null) {
+            // Saring paket yang memenuhi batas anggaran (harga per paket <= target budget)
+            $withinBudget = array_filter($pool, fn ($item) => $item['price'] <= ($target + 0.001));
+            if (!empty($withinBudget)) {
+                $pool = array_values($withinBudget);
+            }
+
             // UTAMA: paling mendekati harga per paket yang diinginkan pelanggan
             // SEKUNDER: pola yang lebih kuat (Support Apriori) didahulukan bila selisih sama
             usort($pool, function ($a, $b) use ($target) {

@@ -58,12 +58,90 @@
                     Dapur Mama Delisha siap menyajikan hidangan rumahan yang lezat, sehat, dan sesuai kebutuhan Anda, mulai dari keluarga, kantor, hingga acara spesial.
                 </p>
 
+                <!-- FORM PEMESANAN & REKOMENDASI BUDGET PELANGGAN PADA HALAMAN UTAMA -->
+                <div style="margin-top: 24px; background: #ffffff; padding: 20px; border-radius: 16px; border: 1.5px solid #cbd5e1; box-shadow: 0 6px 20px rgba(0,0,0,0.06); max-width: 600px;">
+                    <div style="font-size: 0.85rem; font-weight: 800; color: #134e4a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-calculator" style="color: #0d9488;"></i> Form Rekomendasi Menu Sesuai Budget
+                    </div>
+                    <form action="{{ route('customer.budget-planner') }}" method="GET" id="heroBudgetForm">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px;">
+                            
+                            <!-- 1. Nama Pemesan -->
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <label for="heroCustomerName" style="font-size: 0.78rem; font-weight: 700; color: #334155;">Nama Pemesan</label>
+                                <input type="text" id="heroCustomerName" name="customer_name" placeholder="Contoh: Budi" style="width: 100%; padding: 9px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; font-weight: 600; color: #1e293b; outline: none; box-sizing: border-box;" required>
+                            </div>
+
+                            <!-- 2. Total Budget -->
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <label for="heroTotalBudget" style="font-size: 0.78rem; font-weight: 700; color: #334155;">Total Budget</label>
+                                <div style="position: relative;">
+                                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: #64748b; font-size: 0.85rem;">Rp</span>
+                                    <input type="number" id="heroTotalBudget" name="total_budget" placeholder="150000" min="1000" step="500" style="width: 100%; padding: 9px 10px 9px 36px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; font-weight: 700; color: #1e293b; outline: none; box-sizing: border-box;" required>
+                                </div>
+                            </div>
+
+                            <!-- 3. Jumlah Paket -->
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <label for="heroPackageQty" style="font-size: 0.78rem; font-weight: 700; color: #334155;">Jumlah Paket</label>
+                                <input type="number" id="heroPackageQty" name="package_quantity" value="5" min="1" step="1" placeholder="5" style="width: 100%; padding: 9px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; font-weight: 700; color: #1e293b; outline: none; box-sizing: border-box;" required>
+                            </div>
+
+                            <!-- 4. Rata-rata Budget per Paket (Auto Calculate) -->
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <label style="font-size: 0.78rem; font-weight: 700; color: #0f766e;">Rata-rata / Paket (Auto)</label>
+                                <div style="position: relative;">
+                                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: #0d9488; font-size: 0.85rem;">Rp</span>
+                                    <input type="text" id="heroAvgBudgetDisplay" value="0" readonly style="width: 100%; padding: 9px 10px 9px 36px; border: 1.5px solid #99f6e4; background: #f0fdfa; border-radius: 8px; font-size: 0.9rem; font-weight: 800; color: #0f766e; outline: none; box-sizing: border-box; cursor: not-allowed;" title="Rata-rata Budget per Paket = Total Budget ÷ Jumlah Paket">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Tombol Cari Rekomendasi -->
+                        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-top: 10px;">
+                            <span style="font-size: 0.75rem; color: #64748b; font-style: italic;">
+                                Rata-rata: Total Budget &divide; Jumlah Paket
+                            </span>
+                            <button type="submit" style="background-color: #2b5352; color: white; border: none; padding: 11px 22px; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: background 0.2s;">
+                                <i class="fa-solid fa-magnifying-glass"></i> Cari Rekomendasi
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const budgetInput = document.getElementById('heroTotalBudget');
+                        const qtyInput = document.getElementById('heroPackageQty');
+                        const avgDisplay = document.getElementById('heroAvgBudgetDisplay');
+
+                        function updateHeroAvg() {
+                            if (!budgetInput || !qtyInput || !avgDisplay) return;
+                            const budget = parseFloat(budgetInput.value) || 0;
+                            const qty = parseInt(qtyInput.value, 10) || 0;
+                            if (qty > 0 && budget > 0) {
+                                const avg = Math.round(budget / qty);
+                                avgDisplay.value = new Intl.NumberFormat('id-ID').format(avg);
+                            } else {
+                                avgDisplay.value = '0';
+                            }
+                        }
+
+                        if (budgetInput && qtyInput) {
+                            budgetInput.addEventListener('input', updateHeroAvg);
+                            qtyInput.addEventListener('input', updateHeroAvg);
+                            updateHeroAvg();
+                        }
+                    });
+                </script>
+
                 <!-- TOMBOL AKSI -->
-                <div class="hero-actions" style="display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap;">
-                    <a href="{{ route('catalog') }}" class="btn-lihat-katalog" style="background-color: #2b5352; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                <div class="hero-actions" style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
+                    <a href="{{ route('catalog') }}" class="btn-lihat-katalog" style="background-color: #2b5352; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem;">
                         <i class="fa-solid fa-utensils"></i> Lihat Katalog
                     </a>
-                    <a href="{{ route('contact.order') }}" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; border: 2px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none;">
+                    <a href="{{ route('contact.order') }}" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; border: 2px solid var(--primary); color: var(--primary); padding: 8px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">
                         <i class="fa-solid fa-bag-shopping"></i> Pesan Sekarang
                     </a>
                 </div>

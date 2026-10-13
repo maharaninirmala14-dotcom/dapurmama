@@ -1,20 +1,27 @@
 <?php
 
-namespace App\Providers;
 namespace App\Http\Livewire\Customer;
-use Illuminate\Support\ServiceProvider;
-use Livewire\Livewire; // <-- Pastikan ini diimport
 
-class AppServiceProvider extends ServiceProvider
+use Livewire\Component;
+
+class CartBadge extends Component
 {
-    public function register(): void
+    public $count = 0;
+
+    protected $listeners = ['cartUpdated' => 'updateCount'];
+
+    public function mount()
     {
-        //
+        $this->updateCount();
     }
 
-    public function boot(): void
+    public function updateCount()
     {
-        // Daftarkan komponen customer.cart-badge secara eksplisit
-        Livewire::component('customer.cart-badge', \App\Http\Livewire\Customer\CartBadge::class);
+        $this->count = collect(session('cart', []))->sum('qty');
+    }
+
+    public function render()
+    {
+        return view('livewire.customer.cart-badge');
     }
 }

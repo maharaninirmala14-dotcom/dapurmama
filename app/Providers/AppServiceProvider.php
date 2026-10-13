@@ -15,6 +15,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // DAFTARKAN KOMPONEN LIVEWIRE DI SINI
-        Livewire::component('customer.apriori-recommendations', AprioriRecommendations::class);
+        Livewire::component('customer.apriori-recommendations', \App\Http\Livewire\Customer\AprioriRecommendations::class);
     }
 }

@@ -183,6 +183,9 @@
                 <a href="{{ route('admin.orders') }}" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none; border-radius: 8px; font-size: 0.9rem; {{ request()->routeIs('admin.orders*') ? 'background: #ffffff; color: #2b5352; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.1);' : 'color: #cbd5e1; font-weight: 500;' }}">
                     <i class="fa-solid fa-receipt" style="width: 20px;"></i> Pesanan
                 </a>
+                <a href="{{ route('admin.budget-orders') }}" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none; border-radius: 8px; font-size: 0.9rem; {{ request()->routeIs('admin.budget-orders*') ? 'background: #ffffff; color: #2b5352; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.1);' : 'color: #cbd5e1; font-weight: 500;' }}">
+                    <i class="fa-solid fa-clipboard-list" style="width: 20px;"></i> Riwayat Pemesanan
+                </a>
                 <a href="{{ route('admin.transactions') }}" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none; border-radius: 8px; font-size: 0.9rem; {{ request()->routeIs('admin.transactions') ? 'background: #ffffff; color: #2b5352; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.1);' : 'color: #cbd5e1; font-weight: 500;' }}">
                     <i class="fa-solid fa-wallet" style="width: 20px;"></i> Transaksi
                 </a>
