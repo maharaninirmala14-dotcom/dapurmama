@@ -93,6 +93,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     
     // Rute Pesanan (Fokus Operasional / Dapur / Pengiriman)
     Route::get('/orders', \App\Http\Livewire\Admin\Orders::class)->name('orders');
+
+    // Rute Riwayat Pemesanan Berdasarkan Budget
+    Route::get('/budget-orders', \App\Http\Livewire\Admin\BudgetOrders::class)->name('budget-orders');
     
     // Rute Transaksi (Fokus Keuangan & Rekap Pembayaran)
     Route::get('/transactions', \App\Http\Livewire\Admin\Transactions::class)->name('transactions');
